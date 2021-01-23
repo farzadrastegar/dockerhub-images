@@ -1,6 +1,27 @@
 #docker build -t farzadras/deepmet:gpu .
-FROM tensorflow/tensorflow:2.1.0-gpu-py3
+FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
 
-RUN pip --no-cache-dir install codalab==0.5.34 Keras==2.3.1 Keras-Applications==1.0.8 Keras-Preprocessing==1.1.2 matplotlib==3.3.3 numpy==1.19.2 pandas==1.1.5 pip==20.3.3 regex==2020.11.13 scikit-learn==0.23.2 scipy==1.4.1 spacy==2.2.4 torch==1.4.0 tqdm==4.55.1 transformers==2.4.0 psutil==5.7.2 h5py==3.1.0 protobuf==3.14.0
+RUN apt update && \
+    apt install -y bash \
+                   build-essential \
+                   git \
+                   curl \
+                   ca-certificates \
+                   python3 \
+                   python3-pip && \
+    rm -rf /var/lib/apt/lists
 
-WORKDIR /app/codalab
+RUN python3 -m pip install --no-cache-dir --upgrade pip && \
+    python3 -m pip install --no-cache-dir \
+    mkl \
+    pandas==1.1.5 scikit-learn==0.22.2.post1 numpy==1.19.5 matplotlib==3.2.2 scipy==1.4.1 tqdm==4.41.1 spacy==2.2.4 tensorflow==2.1.0  keras==2.3.1 transformers==2.4.0 \
+    torch==1.4.0
+
+RUN git clone https://github.com/NVIDIA/apex
+RUN cd apex && \
+    python3 setup.py install && \
+    pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
+
+WORKDIR /workspace
+
+CMD ["/bin/bash"]
