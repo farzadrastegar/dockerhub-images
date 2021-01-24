@@ -16,7 +16,7 @@ RUN apt update && \
 RUN python3 -m pip install --no-cache-dir --upgrade pip && \
     python3 -m pip install --no-cache-dir \
     mkl \
-    pandas==1.1.5 scikit-learn==0.22.2.post1 numpy==1.19.5 matplotlib==3.2.2 scipy==1.4.1 tqdm==4.41.1 spacy==2.2.4 tensorflow==2.1.0  keras==2.3.1 transformers==2.4.0 \
+    pandas==1.1.5 scikit-learn==0.22.2.post1 numpy==1.19.5 matplotlib==3.2.2 scipy==1.4.1 tqdm==4.41.1 spacy==2.2.4 tensorflow==2.1.0  keras==2.3.1 \
     torch==1.4.0
 
 #RUN git clone https://github.com/NVIDIA/apex
@@ -25,6 +25,10 @@ RUN cd apex && \
     python3 setup.py install && \
     pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
 
-WORKDIR /workspace
+#WORKDIR /workspace
+RUN git clone https://github.com/farzadrastegar/transformers.git
+RUN cd transformers/ && \
+    git checkout tags/v2.4.0 && \ 
+    python3 -m pip install --no-cache-dir .
 
 CMD ["/bin/bash"]
