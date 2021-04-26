@@ -17,5 +17,5 @@ This image is available on Docker Hub at `farzadras/met-all-in-one:gpu`.
 
 ### Note
 
-If you are using an old version of Docker, you might need to add the `--runtime=nvidia` option to the `docker run` command above. See [this](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/user-guide.html) for more info.
+If you are using an old version of Docker, you might need to add the `--runtime=nvidia` switch to the `docker run` command above. See [this](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/user-guide.html) for more info.
 
