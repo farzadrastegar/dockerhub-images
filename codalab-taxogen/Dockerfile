@@ -1,5 +1,5 @@
+# sudo docker build -t farzadras/codalab-taxogen:latest .
 FROM ubuntu:xenial
-MAINTAINER Farzad Rastegar "farzadras@gmail.com"
 
 RUN apt-get update && apt-get install -y software-properties-common
 RUN add-apt-repository ppa:deadsnakes/ppa 
